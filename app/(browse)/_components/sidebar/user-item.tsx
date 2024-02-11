@@ -29,7 +29,7 @@ export const UserItem = ({ username, imageUrl, isLive }: UserItemProps) => {
         asChild
         variant="ghost"
         className={cn(
-          "w-full h-1/2",
+          "w-full h-12",
           collapsed ? "justify-center" : "justify-start",
           isActive && "bg-accent"
         )}
