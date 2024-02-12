@@ -1,8 +1,8 @@
 import { getSelfWithUsername } from "@/lib/auth-service";
 import { redirect } from "next/navigation";
 import { Navbar } from "./_components/navbar";
+import { Container } from "./_components/container";
 import { Sidebar } from "./_components/sidebar";
-import { Container } from "./_components/sidebar/container";
 
 interface CreatorLayoutProps {
   params: { username: string };
