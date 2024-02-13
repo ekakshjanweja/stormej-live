@@ -53,12 +53,7 @@ export const Actions = ({ isFollowing, userId }: ActionsProps) => {
 
   return (
     <>
-      <Button
-        variant="primary"
-        onClick={onClick}
-        disabled={isPending}
-        className="bg-[#8865D9] hover:bg-[#442689]"
-      >
+      <Button variant="primary" onClick={onClick} disabled={isPending}>
         {isFollowing ? "Unfollow" : "Follow"}
       </Button>
       <Button variant="destructive" onClick={handleBlock} disabled={isPending}>
