@@ -13,21 +13,10 @@ export async function POST(req: Request) {
   const authorization = headerPayload.get("Authorization");
 
   if (!authorization) {
-    return new Response("Unauthorized", { status: 401 });
+    return new Response("Unauthorized", { status: 400 });
   }
 
   const event = await receiver.receive(body, authorization);
-
-  if (event.event === "ingress_ended") {
-    await db.stream.update({
-      where: {
-        ingressId: event.ingressInfo?.ingressId,
-      },
-      data: {
-        isLive: false,
-      },
-    });
-  }
 
   if (event.event === "ingress_started") {
     await db.stream.update({
@@ -36,6 +25,17 @@ export async function POST(req: Request) {
       },
       data: {
         isLive: true,
+      },
+    });
+  }
+
+  if (event.event === "ingress_ended") {
+    await db.stream.update({
+      where: {
+        ingressId: event.ingressInfo?.ingressId,
+      },
+      data: {
+        isLive: false,
       },
     });
   }
