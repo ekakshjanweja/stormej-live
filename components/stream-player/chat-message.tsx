@@ -12,13 +12,16 @@ export const ChatMessage = ({ data }: ChatMessageProps) => {
   const color = stringToColor(data.from?.name || "");
   return (
     <>
-      <div className="flex gap-2 p-2 rounded-md hover:bg-white/5">
-        <p>{format(data.timestamp, "HH: MM")}</p>
+      <div className="flex gap-2 p-2 rounded-md hover:bg-white/5 border-b">
         <div className="flex flex-wrap items-baseline gap-1 grow">
+          <p className="text-xs text-muted-foreground mr-2">
+            {format(data.timestamp, "HH: MM")}
+          </p>
           <p className="text-sm font-semibold whitespace-nowrap">
             <span className="truncate" style={{ color: color }}>
               {data.from?.name}
             </span>
+            :
           </p>
           <p className="text-sm break-all">{data.message}</p>
         </div>
