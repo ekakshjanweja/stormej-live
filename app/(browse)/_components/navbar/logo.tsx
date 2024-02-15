@@ -22,7 +22,7 @@ export const Logo = () => {
         </div>
         <div className={cn("hidden md:flex md:pl-4", font.className)}>
           <div className="flex-col">
-            <p className="text-lg font-semibold">stormej.live</p>
+            <p className="text-lg font-semibold">stormejislive</p>
             <p className="text-sm text-muted-foreground">Let&apos;s Cook</p>
           </div>
         </div>
