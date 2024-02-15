@@ -12,7 +12,7 @@ export const Logo = () => {
     <div className="flex flex-col items-center gap-y-4 p-4">
       <Image src="/icon_light.svg" alt="stormej-live" width={80} height={80} />
       <div className={cn("flex flex-col items-center", font.className)}>
-        <p className="text-xl font-semibold">stormej.live</p>
+        <p className="text-xl font-semibold">stormejislive</p>
         <p className="text-sm text-muted-foreground">Let&apos;s Cook</p>
       </div>
     </div>
