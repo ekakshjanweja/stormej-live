@@ -9,6 +9,7 @@ import {
   IngressVideoEncodingPreset,
   RoomServiceClient,
   type CreateIngressOptions,
+  IngressVideoOptions,
 } from "livekit-server-sdk";
 import { TrackSource } from "livekit-server-sdk/dist/proto/livekit_models_pb";
 import { revalidatePath } from "next/cache";
@@ -44,23 +45,22 @@ export const createIngress = async (ingressType: IngressInput) => {
 
   await resetIngresses(self.id);
 
-  const options: CreateIngressOptions = {
-    name: self.username,
-    roomName: self.id,
-    participantName: self.username,
-    participantIdentity: self.id,
-  };
+  let options: CreateIngressOptions;
 
   if (ingressType === IngressInput.WHIP_INPUT) {
-    options.bypassTranscoding = true;
-  } else {
-    options.video = {
-      source: TrackSource.CAMERA,
-      preset: IngressVideoEncodingPreset.H264_1080P_30FPS_3_LAYERS,
+    options = {
+      name: self.username,
+      roomName: self.id,
+      participantName: self.username,
+      participantIdentity: self.id,
+      bypassTranscoding: true,
     };
-    options.audio = {
-      source: TrackSource.MICROPHONE,
-      preset: IngressAudioEncodingPreset.OPUS_STEREO_96KBPS,
+  } else {
+    options = {
+      name: self.username,
+      roomName: self.id,
+      participantName: self.username,
+      participantIdentity: self.id,
     };
   }
 
