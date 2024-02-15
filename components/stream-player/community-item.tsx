@@ -1,12 +1,13 @@
 "use client";
 
-import { cn, stringToColor } from "@/lib/utils";
-import { Hint } from "../hint";
-import { Button } from "../ui/button";
-import { MinusCircle } from "lucide-react";
-import { useTransition } from "react";
-import { onBlock } from "@/actions/block";
 import { toast } from "sonner";
+import { useTransition } from "react";
+import { MinusCircle } from "lucide-react";
+
+import { Hint } from "@/components/hint";
+import { onBlock } from "@/actions/block";
+import { cn, stringToColor } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 interface CommunityItemProps {
   hostName: string;
@@ -18,14 +19,14 @@ interface CommunityItemProps {
 export const CommunityItem = ({
   hostName,
   viewerName,
-  participantName,
   participantIdentity,
+  participantName,
 }: CommunityItemProps) => {
   const [isPending, startTransition] = useTransition();
 
-  const color = stringToColor(participantName ?? "");
-  const isSelf = participantIdentity === viewerName;
-  const isHost = participantIdentity === hostName;
+  const color = stringToColor(participantName || "");
+  const isSelf = participantName === viewerName;
+  const isHost = viewerName === hostName;
 
   const handleBlock = () => {
     if (!participantName || isSelf || !isHost) return;
@@ -33,7 +34,7 @@ export const CommunityItem = ({
     startTransition(() => {
       onBlock(participantIdentity)
         .then(() => toast.success(`Blocked ${participantName}`))
-        .catch(() => toast.error(`Failed to block ${participantName}`));
+        .catch(() => toast.error("Something went wrong"));
     });
   };
 
@@ -44,16 +45,16 @@ export const CommunityItem = ({
         isPending && "opacity-50 pointer-events-none"
       )}
     >
-      <p style={{ color: color }}> {participantName}</p>
+      <p style={{ color: color }}>{participantName}</p>
       {isHost && !isSelf && (
         <Hint label="Block">
           <Button
             variant="ghost"
             disabled={isPending}
             onClick={handleBlock}
-            className="h-auto w-auto p-1 opacity-0 group-hover:opacity-100"
+            className="h-auto w-auto p-1 opacity-0 group-hover:opacity-100 transition"
           >
-            <MinusCircle className="h-4 w-4 text-red-600" />
+            <MinusCircle className="h-4 w-4 text-red-800 text-muted-foreground" />
           </Button>
         </Hint>
       )}
